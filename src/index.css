@@ -1,0 +1,128 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* فونت Vazir: اگر می‌خواید فونت فانتزی محلی داشته باشید،
+   فایل Vazir.ttf را در public/fonts/Vazir.ttf قرار دهید و خط زیر را فعال کنید.
+@font-face {
+  font-family: 'Vazir';
+  src: url('/public/fonts/Vazir.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+*/
+
+:root {
+  --pink: #ff6fb5;
+  --soft-pink: #ffd6e8;
+  --soft-purple: #e9d5ff;
+  --glass: rgba(255,255,255,0.7);
+}
+
+html, body, #root { height:100%; }
+
+.font-vazir { font-family: 'Vazir', 'Tahoma', 'Helvetica Neue', Arial, sans-serif; }
+
+/* fancy title */
+.title-fancy {
+  background: linear-gradient(90deg, #ff6fb5, #caa7ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* start button animations */
+.start-btn {
+  transition: transform .18s ease, box-shadow .18s ease;
+  position: relative;
+  overflow: hidden;
+}
+.start-btn::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background: radial-gradient(circle at 10% 20%, rgba(255,255,255,0.25), transparent 30%);
+  opacity:0.6;
+  mix-blend-mode: overlay;
+}
+.start-btn:hover{ transform: translateY(-4px) scale(1.02); box-shadow: 0 12px 30px rgba(202,167,255,0.18); }
+.start-btn { animation: heartbeat 2.5s infinite; }
+@keyframes heartbeat {
+  0%{ transform: scale(1); }
+  10%{ transform: scale(1.02); }
+  20%{ transform: scale(1); }
+  100%{ transform: scale(1); }
+}
+
+/* floating hearts background */
+.hearts-layer {
+  position:absolute;
+  inset:0;
+}
+.hearts-layer::before, .hearts-layer::after {
+  content:'';
+  position:absolute;
+  width:250%;
+  height:250%;
+  left:-75%;
+  top:-60%;
+  background-image: radial-gradient(circle at 20% 20%, rgba(255,111,181,0.06), transparent 2%),
+                    radial-gradient(circle at 60% 40%, rgba(202,167,255,0.04), transparent 2%);
+  animation: rotate-slow 20s linear infinite;
+  pointer-events:none;
+}
+@keyframes rotate-slow { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+
+/* small floating heart SVGs */
+.hearts-layer svg {
+  position:absolute;
+  opacity:0.9;
+  animation: floatUp 6s linear infinite;
+  filter: drop-shadow(0 6px 12px rgba(0,0,0,0.06));
+}
+@keyframes floatUp {
+  0%{ transform: translateY(0) scale(0.9); opacity:0.0; }
+  10%{ opacity:0.9; }
+  50%{ transform: translateY(-30px) scale(1); }
+  100%{ transform: translateY(-80px) scale(0.9); opacity:0; }
+}
+
+/* progress bar */
+.progress-bar {
+  background: linear-gradient(90deg, #ffb1d6, #caa7ff);
+  transition: width .4s ease;
+}
+
+/* result glow */
+.percent-glow {
+  background: linear-gradient(90deg, #fff3f7, #ffe9ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 10px 30px rgba(202,167,255,0.35);
+}
+
+/* result card animation */
+.result-card { animation: popIn .45s ease; }
+@keyframes popIn {
+  from{ transform: scale(.98); opacity:0; }
+  to{ transform: scale(1); opacity:1; }
+}
+
+/* question card fade transitions handled inline */
+
+/* sparkles (subtle) */
+.sparkles-layer { position:absolute; inset:0; pointer-events:none; }
+.sparkles-layer::after {
+  content:'';
+  position:absolute;
+  inset:0;
+  background-image: radial-gradient(circle at 10% 30%, rgba(255,255,255,0.12), transparent 2%),
+                    radial-gradient(circle at 80% 70%, rgba(255,255,255,0.08), transparent 2%);
+  mix-blend-mode: screen;
+  animation: shimmer 6s linear infinite;
+}
+@keyframes shimmer { 0%{transform:translateX(-10%)} 50%{transform:translateX(10%)} 100%{transform:translateX(-10%)} }
+
+/* small responsive tweaks */
+@media (max-width:640px){
+  .title-fancy { font-size: 1.6rem; }
+}
